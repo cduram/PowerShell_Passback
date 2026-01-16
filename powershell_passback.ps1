@@ -1,7 +1,11 @@
 param(
-    [Parameter(Mandatory=$true)]
+    [Parameter()]
     [int]$Port
 )
+
+if (-not $PSBoundParameters.ContainsKey('Port')) {
+    $Port = Read-Host "Port"
+}
 
 Write-Host "Starting listener on port $Port..." -ForegroundColor Green
 Write-Host "Press Ctrl+C to stop" -ForegroundColor Yellow
