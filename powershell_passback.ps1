@@ -22,7 +22,7 @@ try {
     $writer.AutoFlush = $true
     
     $remoteEndpoint = $client.Client.RemoteEndPoint
-    Write-Host "Connected from: $remoteEndpoint" -ForegroundColor Green
+    Write-Host "Connection from: $remoteEndpoint" -ForegroundColor Green
     Write-Host ""
     
     # Read and display incoming data
@@ -49,4 +49,5 @@ finally {
     if ($client) { $client.Close() }
     if ($listener) { $listener.Stop() }
     Write-Host "`nListener stopped." -ForegroundColor Yellow
+
 }
