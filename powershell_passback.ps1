@@ -4,7 +4,18 @@ param(
 )
 
 if (-not $PSBoundParameters.ContainsKey('Port')) {
-    $Port = Read-Host "Port"
+    Write-Host "PowerShell Passback Listener" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "A simple TCP listener that captures and displays incoming data." -ForegroundColor White
+    Write-Host "Useful for capturing credentials from LDAP passback attacks or similar techniques." -ForegroundColor White
+    Write-Host ""
+    Write-Host "Usage:" -ForegroundColor Yellow
+    Write-Host "  .\powershell_passback.ps1 -Port <port_number>" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "Example:" -ForegroundColor Yellow
+    Write-Host "  .\powershell_passback.ps1 -Port 389" -ForegroundColor Green
+    Write-Host ""
+    exit
 }
 
 Write-Host "Starting listener on port $Port..." -ForegroundColor Green
