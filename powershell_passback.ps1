@@ -26,10 +26,13 @@ try {
     # Create TCP listener
     $listener = [System.Net.Sockets.TcpListener]::new([System.Net.IPAddress]::Any, $Port)
     $listener.Start()
-    
+
     Write-Host "Waiting for connection..." -ForegroundColor Cyan
-    
-    # Accept incoming connection
+
+    # Poll for incoming connection (allows Ctrl+C to interrupt)
+    while (-not $listener.Pending()) {
+        Start-Sleep -Milliseconds 100
+    }
     $client = $listener.AcceptTcpClient()
     $stream = $client.GetStream()
     $reader = [System.IO.StreamReader]::new($stream)
@@ -52,6 +55,9 @@ try {
         }
         Start-Sleep -Milliseconds 10
     }
+}
+catch [System.Management.Automation.PipelineStoppedException] {
+    # Ctrl+C pressed - exit gracefully
 }
 catch {
     Write-Host "Error: $_" -ForegroundColor Red
